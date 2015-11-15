@@ -1,0 +1,27 @@
+cf_table_homepage:
+    path:     /clients
+    defaults: { _controller: CFTableBundle:Clients:showClients }
+
+cf_table_newClient:
+    path:     /new-client
+    defaults: { _controller: CFTableBundle:Clients:newClient }
+
+cf_table_search:
+    path:     /search
+    defaults: { _controller: CFTableBundle:Clients:search }
+
+cf_table_add:
+    path:     /add
+    defaults: { _controller: CFTableBundle:Clients:add }
+
+cf_table_add_points:
+    path:     /add-points/{id}
+    defaults: { _controller: CFTableBundle:Clients:addPoints }
+
+cf_table_minus_points:
+    path:     /minus-points/{id}
+    defaults: { _controller: CFTableBundle:Clients:minusPoints }
+
+cf_table_users:
+    path:     /users
+    defaults: { _controller: CFTableBundle:Clients:users }

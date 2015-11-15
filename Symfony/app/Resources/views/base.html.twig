@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<header>
+<!-- Latest compiled and minified CSS -->
+
+
+<link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap-theme.min.css') }}">
+
+
+<style>
+html, body {
+  height: 100%;
+}
+#wrap {
+  min-height: 100%;
+}
+#main {
+  overflow:auto;
+  padding-bottom:150px; /* this needs to be bigger than footer height*/
+}
+footer {
+position: relative;
+  margin-top: -150px; /* negative value of footer height */
+  height: 150px;
+  clear:both;
+  padding-top:20px;
+}
+
+.logout{
+  color: blue;
+}
+
+.not-active {
+  pointer-events: none;
+  cursor: default;
+}
+
+.copyright{
+  padding-top:15px;
+}
+
+</style>
+
+</header>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div id="wrap">
+            <div class="container" id="main">
+
+
+              {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                  <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="/clients">COCO</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav">
+                        {% block menu %}
+                        {% endblock menu %}
+                      </ul>
+                      <form action="/search" class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Search" name="searchedName">
+                        </div>
+                        <button type="submit" class="btn btn-default">Rechercher</button>
+                      </form>
+                      <ul class="nav navbar-nav navbar-right">
+                        {% if is_granted("ROLE_ADMIN") %}
+                          <li><a href="register">Nouvel utilisateur</a></li>
+                          <li><a href="#">Gestion utilisateurs</a></li>
+                        {% endif %}
+                        <li><a href="#" class="not-active" style="">{{ app.security.getToken().getUser().getUsername() }}</a></li>
+                        <li class="dropdown">
+                          <a class="logout" href="/logout">Déconnexion</a>
+                        </li>
+                      </ul>
+                    </div><!-- /.navbar-collapse -->
+                  </div><!-- /.container-fluid -->
+                </nav>
+              {% else %}
+
+                <div class="jumbotron">
+                    <h1 class="text-center">Bienvenue sur Coco</h1>
+                </div>
+
+              {% endif %}
+                <div class="row" style="margin-top:100px">
+                    <div class="span12">
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block javascripts %}{% endblock %}
+
+        <footer class="container">
+            
+            <nav class="navbar navbar-inverse navbar-fixed-bottom">
+            <div class="container copyright">
+              <p style="color:white">&copy; Coco {{ '' | date('Y') }} </p>
+            </div>
+          </nav>
+        </footer>
+    </body>
+</html>

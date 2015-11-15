@@ -1,0 +1,3 @@
+cf_user_users:
+    path:     /users
+    defaults: { _controller: CFUserBundle:User:showUsers }

@@ -1,0 +1,57 @@
+{% extends "::base.html.twig" %}
+
+{% block menu %}
+  <li><a href="/new-client">Nouveau client <span class="sr-only">(current)</span></a></li>
+  <li class="active"><a href="/clients">Mes clients</a></li>
+{% endblock menu%}
+
+{% block body%}
+
+      <table class="table">
+             <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Nom</th>
+                      <th>Prénom</th>
+                      <th>Adresse</th>
+                      <th>Code postal</th>
+      				<th>Téléphone</th>
+      				<th>Email</th>
+      				<th>Points</th>
+                  </tr>
+              </thead>
+      		<tbody>
+      {% for client in clients %}
+      		<tr>
+      		<td>{{ client.id }}</td>
+      		<td>{{ client.name }}</td>
+      		<td>{{ client.firstName }}</td>
+      		<td>{{ client.address }}</td>
+      		<td>{{ client.zipCode }}</td>
+      		<td>{{ client.tel }}</td>
+      		<td>{{ client.email }}</td>
+      		<td>{{ client.points }}</td>
+      		<td><form name="form" action="add-points/{{client.id}}" method="get">
+      				<input style="width:60px; display:inline-block;" class="form-control input-sm" type="number" name="points" required>
+      				<button id="" name="" class="btn btn-info btn-sm">+</button>
+      			 </form>
+      		</td>
+      		<td>
+              <form name="form" action="minus-points/{{client.id}}" method="get">
+      				<input style="width:60px; display:inline-block;" class="form-control input-sm" type="number" name="points" required>
+      				<button id="" name="" class="btn btn-info btn-sm">-</button>
+              </form>
+          </td>
+
+            {%  if client.points >= '100' %}
+            <td>
+              <i class="glyphicon glyphicon-gift" style="font-size: 1.5em; padding:0px 0px 0px 20px; color:green;"></i>
+            </td>
+            {% endif%}
+
+      	</tr>
+      {% endfor %}
+      	</tbody>
+      </table>
+
+{% endblock body %}
